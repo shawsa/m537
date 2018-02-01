@@ -1,4 +1,5 @@
 cascsum
+.ipynb_checkpoints/*
 
 *.pdf
 __pycache__
