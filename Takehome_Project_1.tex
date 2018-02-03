@@ -95,7 +95,7 @@ Consider an insulated rod with end-points kept at constant temperatures $\alpha$
 		u(0,t) & = \alpha, \ \  u(1,t) = \beta, && & 0 & < t \\
 		u(x,0) & = f(x), && 0  < x < 1
 	\end{aligned} 
-\right .
+\right . \label{eq1}
 \end{equation}
 Suppose
 \begin{align*}
@@ -106,14 +106,138 @@ Suppose
 
 \problem{1.} Determine the equilibrium solution. \bigbreak
 
-The equilibrium solution is the solution for which the temperature at teach point is constant with respect to time. Mathematically we represent this by saying $\frac{\partial u}{\partial t} = 0$. Incorporating this we get
+The equilibrium solution $u_{\infty}(x)$, is the solution for which the temperature at each point is constant with respect to time. Mathematically we represent this by saying $\frac{\partial u_\infty}{\partial t} = 0$. Substituting into (\ref{eq1}) we get
 \begin{align*}
-0 & = D \frac{\partial^2u}{\partial x^2}(x) + q(x) \\
-\frac{\partial^2u}{\partial x^2}(x) & = -\frac{1}{D}q(x) \\
+0 & = D \frac{\partial^2u_\infty}{\partial x^2}(x) + q(x) \\
+\frac{\partial^2u_\infty}{\partial x^2}(x) & = -\frac{1}{D}q(x) \\
 & = -\pi^2 \sin(\pi x) \\
-\frac{\partial u}{\partial x}(x) & = \pi \cos(\pi x) \\
-u_\infty
+\frac{\partial u_\infty}{\partial x}(x) & = \pi \cos(\pi x) + A\\
+u_\infty(x) & = \sin(\pi x) + Ax + B
+\end{align*}
+Using the boundary condition $u(0,t)=\alpha$ we can conclude that $B = \alpha$. Using the boundary condition $u(1,t) = \beta$ we can conclude that $A = (\beta - \alpha)$. Thus we have that 
+$$
+u_\infty(x) = \sin(\pi x) - 4x + 1
+$$
+
+\problem{2. } Make the substitution $v(x,t) = u(x,t) - u_\infty(x)$ and derive an initial-boundary value problem for $v(x,t)$. \bigbreak
+
+Taking the derivative it is easy to see that $\frac{\partial v}{\partial t}(x,t) = \frac{\partial u}{\partial t}(x,t)$ since $u_\infty(x)$ is independent of $t$. Also
+\begin{align*}
+\frac{\partial^2v_\infty}{\partial x^2}(x,t) & = \frac{\partial^2u}{\partial x^2}(x,t) - \frac{\partial^2u_\infty}{\partial x^2}(x) \\
+ & = \frac{\partial^2u}{\partial x^2}(x,t) + \pi^2\sin(\pi x) \\
+ & = \frac{\partial u}{\partial t}(x,t) \\
+ & = \frac{\partial v}{\partial t}(x,t)
 \end{align*}
 
+Substituting the boundary conditions we get
+$$
+v(0,t) = u(0,t) - u_\infty(0) = \alpha - \alpha = 0
+$$
+$$
+v(1,t) = u(1,t) - u_\infty(1) = \beta - \big( (\beta - \alpha)1 + \alpha \big) = 0
+$$
+Substituting our initial condition we get
+$$
+v(x,0) = u(x,0) - u_\infty(x) = (1 - x)(x + 3) - \sin(\pi x) + 4x - 1
+$$
+Collecting these, we have created a homogeneous initial-boundary value problem:
+\begin{equation}
+\left \{
+	\begin{aligned}
+		\frac{\partial v}{\partial t}(x,t) & = \frac{\partial^2v}{\partial x^2}(x,t), && 0 <x <1, & 0&<t \\
+		v(0,t) & = 0, \ \  v(1,t) = 0, && & 0 & < t \\
+		v(x,0) & = (1 - x)(x + 3) - \sin(\pi x) + 4x - 1, && 0  < x < 1
+	\end{aligned} 
+\right . \label{eq2}
+\end{equation}
 
+\problem{3. } From our notes we know that a solution to (\ref{eq2}) is given by
+$$
+v(x,t) = \sum\limits_{n=1}^\infty b_n \sin(\frac{n \pi}{L}x)e^{-k (\frac{n \pi}{L})^2t}
+$$
+where the coefficients $b_n$ are given by
+$$
+b_n = \frac{2}{L}\int_{0}^{L}f(x) \sin(\frac{n \pi}{L}x) dx
+$$
+Here $L = 1$, and 
+\begin{align*}
+f(x) & = (1 - x)(x + 3) - \sin(\pi x) + 4x - 1 \\
+& = -x^2 - 2x + 3 - \sin(\pi x) + 4x - 1 \\
+& = -x^2 + 2x + 2 - \sin(\pi x)
+\end{align*}
+We can calculate $b_n$ for $n \in \{1, 2, ...\}$ as follows
+\begin{align*}
+	b_n & = 2\int_{0}^{1}f(x) \sin(n \pi x) dx \\
+	& = -2\int_{0}^{1}x^2 \sin(n \pi x) dx + 4 \int_{0}^{1}x \sin(n \pi x) dx \\
+	& \phantom{===} + 4 \int_{0}^{1} \sin(n \pi x) dx - 2\int_{0}^{1} \sin(\pi x)\sin(n \pi x) dx
+\end{align*}
+We will consider all four of these integrals separately. First
+\begin{align*}
+	\int_{0}^{1}x^2 \sin(n \pi x) dx & = \int_{0}^{1}x^2 \bigg[ \frac{-1}{n \pi}\cos(n \pi x) \bigg]^{\prime} dx \\
+	& = \bigg[ x^2 \frac{-1}{n \pi}\cos(n \pi x) \bigg]_{x=0}^{x=1}  + \frac{2}{n \pi} \int_{0}^{1} x \cos(n \pi x) dx \\
+	& = \frac{-1}{n \pi}\cos(n \pi) + \frac{2}{n \pi} \int_{0}^{1} x \bigg[\frac{1}{n \pi}\sin(n \pi x) \bigg]^{\prime} dx \\
+	& = \frac{(-1)^{n+1}}{n \pi} + \frac{2}{n \pi} \int_{0}^{1} x \bigg[\frac{1}{n \pi}\sin(n \pi x) \bigg]^{\prime} dx \\
+	& = \frac{(-1)^{n+1}}{n \pi} + \bigg[ \frac{2}{n \pi} x\frac{1}{n \pi}\sin(n \pi x) \bigg]_{x=0}^{x=1} - \frac{2}{n \pi}\int_{0}^{1} \frac{1}{n \pi}\sin(n \pi x) dx \\
+	& = \frac{(-1)^{n+1}}{n \pi} - \frac{2}{n^2 \pi^2}\int_{0}^{1} \sin(n \pi x) dx \\
+	& = \frac{(-1)^{n+1}}{n \pi} + \frac{2}{n^3 \pi^3} \bigg[ \cos(n \pi x) \bigg]_{x=0}^{x=1} \\
+	& = \frac{(-1)^{n+1}}{n \pi} + \frac{2}{n^3 \pi^3} \bigg[ \cos(n \pi)  - 1\bigg] \\
+	& = \frac{(-1)^{n+1}}{n \pi} + \frac{2(-1)^{n}}{n^3 \pi^3} - \frac{2}{n^3 \pi^3} \\
+\end{align*}
+Next
+\begin{align*}
+	\int_{0}^{1}x \sin(n \pi x) dx & = \int_{0}^{1}x \bigg[ \frac{-1}{n \pi}\cos(n \pi x) \bigg]^{\prime}dx \\
+	&= \bigg[ -x \frac{1}{n \pi}\cos(n \pi x) \bigg]_{x=0}^{x=1} + \frac{1}{n \pi} \int_{0}^{1} \cos(n \pi x) dx \\
+	& = \frac{-1}{n \pi}\cos(n \pi) + \frac{1}{n \pi} \bigg[ \frac{1}{n \pi} \sin(n \pi x) \bigg]_{x=0}^{x=1} \\
+	& = \frac{(-1)^{n+1}}{n\pi}
+\end{align*}
+Next
+\begin{align*}
+	\int_{0}^{1}\sin(n \pi x) dx & = \bigg[ \frac{-1}{n\pi} \cos(n \pi x) \bigg]_{x=0}^{x=1} \\
+	& = \frac{-1}{n\pi} \cos(n \pi) - \frac{-1}{n\pi} \\
+	& = \frac{(-1)^{n+1}}{n\pi} + \frac{1}{n\pi} \\
+	& = \frac{1 + (-1)^{n+1}}{n\pi}
+\end{align*}
+Lastly from our orthogonality rules we know that 
+$$
+\int_0^1 sin(n \pi x) sin(\pi x) dx = \begin{cases}
+	\frac{1}{2} & \text{ if } n=1 \\
+	0 & \text{else}
+\end{cases}
+$$
+
+From these four results it is appropriate to consider 4 cases: when $n=1$, when $n$ is even, and when $n$ is odd and greater than 1. When $n = 1$ we have
+\begin{align*}
+	b_n & = -2\int_{0}^{1}x^2 \sin(n \pi x) dx + 4 \int_{0}^{1}x \sin(n \pi x) dx \\
+	& \phantom{===} + 4 \int_{0}^{1} \sin(n \pi x) dx - 2\int_{0}^{1} \sin(\pi x)\sin(n \pi x) dx \\
+	b_1 & = -2 \bigg( \frac{1}{\pi} - \frac{2}{\pi^3} - \frac{2}{\pi^3}\bigg) + 4 \bigg( \frac{1}{\pi} \bigg) + 4 \bigg( \frac{2}{\pi} \bigg) - 2 \bigg( \frac{1}{2} \bigg) \\
+	& = \frac{10}{\pi} + \frac{8}{\pi^3} - 1 \\
+	& \approx 2.441111137303503
+\end{align*}
+When $n$ is even we have
+\begin{align*}
+b_n & = -2\int_{0}^{1}x^2 \sin(n \pi x) dx + 4 \int_{0}^{1}x \sin(n \pi x) dx \\
+& \phantom{===} + 4 \int_{0}^{1} \sin(n \pi x) dx - 2\int_{0}^{1} \sin(\pi x)\sin(n \pi x) dx \\
+b_n & = -2 \bigg( \frac{-1}{n\pi} + \frac{2}{n^3\pi^3} - \frac{2}{n^3\pi^3}\bigg) + 4 \bigg( \frac{-1}{n\pi} \bigg) + 4 \bigg( 0 \bigg) - 2 \bigg( 0 \bigg) \\
+& = \frac{-2}{n\pi}
+\end{align*}
+Lastly when $n$ is odd and $1<n$ we have
+\begin{align*}
+b_n & = -2\int_{0}^{1}x^2 \sin(n \pi x) dx + 4 \int_{0}^{1}x \sin(n \pi x) dx \\
+& \phantom{===} + 4 \int_{0}^{1} \sin(n \pi x) dx - 2\int_{0}^{1} \sin(\pi x)\sin(n \pi x) dx \\
+b_n & = -2 \bigg( \frac{1}{n\pi} + \frac{-2}{n^3\pi^3} - \frac{2}{n^3\pi^3}\bigg) + 4 \bigg( \frac{1}{n\pi} \bigg) + 4 \bigg( \frac{2}{n\pi} \bigg) - 2 \bigg( 0 \bigg) \\
+& = \frac{10}{n\pi} + \frac{8}{n^3 \pi^3}
+\end{align*}
+
+Combining all of these facts we get that 
+\begin{align*}
+	u(x,t) & = \sin(\pi x) - 4x + 1 + \sum\limits_{n=1}^\infty b_n \sin(n \pi x)e^{-(n \pi)^2t} \\
+	b_n & = \begin{cases}
+			\frac{10}{\pi} + \frac{8}{\pi^3} - 1 &, n=1 \\
+			\frac{-2}{n\pi} & , n \text{ even} \\
+			\frac{10}{n\pi} + \frac{8}{n^3 \pi^3} & \text{, else}
+		\end{cases}
+\end{align*}
+for $0<x<1$ and $t>0$ is the full solution to (\ref{eq1}).
+
+\problem{4. }
 \end{document}
