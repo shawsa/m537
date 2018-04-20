@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math
+\usepackage{fancyhdr} 
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{dsfont}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros
+\usepackage{calc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands and Custom Variables	
+\newcommand{\problem}[1]{\hspace{-4 ex} \large \textbf{Problem #1} }
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\sint}{\text{s}\kern-5pt\int}
+\newcommand{\powerset}{\mathcal{P}}
+\renewenvironment{proof}{\hspace{-4 ex} \emph{Proof}:}{\qed}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+%\doublespacing
+\allowdisplaybreaks
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Shaw \space \thepage}
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Code
+\usepackage{listings}
+\usepackage{courier}
+\lstset{
+	language=Python,
+	showstringspaces=false,
+	formfeed=newpage,
+	tabsize=4,
+	commentstyle=\itshape,
+	basicstyle=\ttfamily,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Images
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+
+%tikz
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Hyperlinks
+%\usepackage{hyperref}
+%\hypersetup{
+%	colorlinks=true,
+%	linkcolor=blue,
+%	filecolor=magenta,      
+%	urlcolor=cyan,
+%}
+
+\begin{document}
+	\thispagestyle{empty}
+	
+	\begin{flushright}
+		Sage Shaw \\
+		m537 - Spring 2018 \\
+		\today
+	\end{flushright}
+	
+{\large \textbf{Take-home Project 4}}\bigbreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{(2) $\iff $ (4)} \\
+\begin{proof}
+	Obviously (4) $\implies$ (2). It remains to show that (2) $\implies$ (4). \bigbreak
+	
+	Suppose that $L$ is continuous at $\vec{0}$. Let $\{\vec{x}_n\} \subseteq X$ such that $\lim\limits_{n \to \infty} \vec{x}_n = \vec{x} \in X$. Then clearly $\lim\limits_{n \to \infty} (\vec{x}_n - \vec{x}) = \vec{0}$.
+	\begin{align*}
+	\vec{0} & = L\vec{0} \\
+	& = \lim_{n \to \infty} L(\vec{x}_n - \vec{x}) \\
+	& = \lim_{n \to \infty} (L\vec{x}_n - L\vec{x}) \\
+	& = (\lim_{n \to \infty} L\vec{x}_n) - L\vec{x}
+	\end{align*}
+	Finally $\lim\limits_{n \to \infty} L\vec{x}_n = L\vec{x}$.	
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{(2) $\implies$ (3)} \\
+\begin{proof}
+	Suppose $L$ is continuous at $\vec{0}$. From class we have the alternative definition of continuity that says for $\epsilon=1$ there exists a $\delta >0$ such that if $\norm{\vec{x}}<\delta$ then $\norm{L\vec{x}}<1$. \bigbreak
+	
+	Let $\vec{x} \in X$. Then $\frac{\delta}{2\norm{\vec{x}}}\vec{x} \in X$ and $\norm{\frac{\delta}{2\norm{\vec{x}}}\vec{x}} = \frac{\delta}{2\norm{\vec{x}}}\norm{\vec{x}} = \frac{\delta}{2} < \delta$. Thus $\norm{L\frac{\delta}{2\norm{\vec{x}}}\vec{x}} < 1$. Finally this implies that $\norm{L\vec{x}} < \frac{2}{\delta}$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{(3) $\implies$ (4)} \\
+\begin{proof}
+	Suppose there exists $A>0$ such that for all $\vec{x} \in X$, $\norm{L\vec{x}} \leq A \norm{\vec{x}}$. \bigbreak
+	
+	We would like to show $L$ is continuous at all points in $X$. \bigbreak
+	
+	Let $x \in X$ and $\{\vec{x}_n\}_{n=1}^\infty \subseteq X$ such that $\lim\limits_{n\to \infty} \vec{x}_n = \vec{x}$. Let $\epsilon >0$ be given. Since $\lim\limits_{n\to \infty} \vec{x}_n = \vec{x}$ there exists $N \in \NN$ such that if $n\geq N$ then $\norm{\vec{x}_n - \vec{x}} < \frac{\epsilon}{A}$. Then for any $n \geq N$
+	\begin{align*}
+		\norm{L \vec{x_n} - L\vec{x}} & = \norm{L(\vec{x}_n - \vec{x})} \\
+		& \leq A \norm{\vec{x}_n - \vec{x}} \\
+		& < A \frac{\epsilon}{A} = \epsilon
+	\end{align*}
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{(4) $\implies$ (1)} \\
+\begin{proof}
+	Let $L$ be continuous at all points in $X$. Let $\{x_n\}_{n=1}^\infty \subseteq X$ such that $\lim_{n \to \infty} \vec{x}_n = \vec{0}$. We would like to show that there exists $C>0$ such that $\norm{L\vec{x}_n} \leq C$ for all $n \in \NN$. \bigbreak
+	
+	Since $L$ is continuous at all points in $X$ we know that $L$ is continuous at $\vec{0}$. Thus there exists $N \in \NN$ such that if $n \geq N$ then $\norm{L\vec{x}_n} < 1$. Then the set $\{ L\norm{\vec{x}_n} \}_{n=1}^N$ is a finite set of real numbers. Let $C_1$ be the maximum of this set. Let $C = max\{C_1, 1\}$. \bigbreak
+	
+	This $C$ satisfies our condition. Consider a particular $\vec{x}_n$. If $n<N$ then $\norm{L\vec{x}_n} \leq C_1 \leq C$, otherwise $\norm{L\vec{x}_n} \leq 1 \leq C$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\problem{(1) $\implies$ (2)} \\
+\begin{proof}
+	Suppose (1). We would like to show that $L$ is continuous at $\vec{0}$. \bigbreak
+	
+	
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}

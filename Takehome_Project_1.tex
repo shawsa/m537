@@ -242,46 +242,60 @@ for $0<x<1$ and $t>0$ is the full solution to (\ref{eq1}).
 \problem{4. } The solution for this problem can be visualized via the following contour plot.
 
 \begin{figure}[H]
-	\caption{Contour Plot of $u(x,t)$}
-	\includegraphics[width=1\textwidth]{tk01_figure_1}
-	\label{contour}
+	\caption{Contour Plot of $u(x,t)$ with $n=10$ terms of the series.}
+	\includegraphics[width=.9\textwidth]{tk01_figure_1_contour_10}
+	\label{contour10}
+	\centering
+\end{figure}
+\begin{figure}[H]
+	\caption{Contour Plot of $u(x,t)$ with $n=10$ terms of the series.}
+	\includegraphics[width=.9\textwidth]{tk01_figure_2_contour_200}
+	\label{contour200}
 	\centering
 \end{figure}
 
-For very small $t$ values, there is quite a bit of error due to the fact that the coefficients $b_n$ oscillate and converge very slowly. This is fixed very quickly since the term $e^{-(n \pi)^2t}$ converges rapidly to zero. To demonstrate this, consider a cross-section when $t=0.05$ for different numbers of terms in the series.
+Very few terms of the series need to be computed to have a highly accurate approximation of the function. It seems that somewhere between 2 and 5 is the cutoff point, but just to demonstrate, we can see that there is no visible difference between $n=10$ terms and $n=200$ terms. \bigbreak
+
+For very small $t$ values, there is more error due to the fact that the coefficients $b_n$ oscillate and converge very slowly. This is fixed very quickly since the term $e^{-(n \pi)^2t}$ converges rapidly to zero. To demonstrate this, consider a cross-section when $t=0.0005$ for different numbers of terms in the series.
 	
 	
 \begin{figure}[H]
-	\caption{$u_\infty(x,.05)$}
-	\includegraphics[width=.5\textwidth]{tk01_figure_2}
+	\caption{$u_\infty(x,.0005)$}
+	\includegraphics[width=.5\textwidth]{tk01_figure_3_cross0}
+	\label{cross0}
+	\centering
+\end{figure}
+\begin{figure}[H]
+	\caption{$u(x,.0005)$ approximated with $n=1$ terms}
+	\includegraphics[width=.5\textwidth]{tk01_figure_4_cross1}
 	\label{fig2}
 	\centering
 \end{figure}
 \begin{figure}[H]
-	\caption{$u(x,.05)$ approximated with $n=0$ terms}
-	\includegraphics[width=.5\textwidth]{tk01_figure_2}
+	\caption{$u(x,.0005)$ approximated with $n=2$ terms}
+	\includegraphics[width=.5\textwidth]{tk01_figure_5_cross2}
 	\label{fig2}
 	\centering
 \end{figure}
 \begin{figure}[H]
-	\caption{$u(x,.05)$ approximated with $n=1$ terms}
-	\includegraphics[width=.5\textwidth]{tk01_figure_3}
+	\caption{$u(x,.0005)$ approximated with $n=5$ terms}
+	\includegraphics[width=.5\textwidth]{tk01_figure_6_cross5}
 	\label{fig2}
 	\centering
 \end{figure}
 \begin{figure}[H]
-	\caption{$u(x,.05)$ approximated with $n=2$ terms}
-	\includegraphics[width=.5\textwidth]{tk01_figure_4}
+	\caption{$u(x,.0005)$ approximated with $n=10$ terms}
+	\includegraphics[width=.5\textwidth]{tk01_figure_7_cross10}
 	\label{fig2}
 	\centering
 \end{figure}
 \begin{figure}[H]
-	\caption{$u(x,.05)$ approximated with $n=10$ terms}
-	\includegraphics[width=.5\textwidth]{tk01_figure_4}
+	\caption{$u(x,.0005)$ approximated with $n=1000$ terms}
+	\includegraphics[width=.5\textwidth]{tk01_figure_8_cross1000}
 	\label{fig2}
 	\centering
 \end{figure}
 
-After about $n=2$ terms in the series additional work is essentially wasted, and in fact, the cross section is about the same for $u_\infty$ since the first two terms roughly cancel out. Essentially, we could just approximate the solution with zero terms of the sum, i.e. the steady state $u_\infty$. For values when $t$ is small, we have very poor convergence and would need to take far more terms.
+In conclusion, if $t$ is not very small only a few iterations are needed - certainly $10$ is enough. For very small values of $t \approx 0$, the exponential terms is roughly $e^{-(n \pi)^2t} \approx 1$ and thus it converges at approximately the same rate as $b_n$ converges which has the same order of convergence as the alternating harmonic series, which is known to be extremely slow.
 
 \end{document}
