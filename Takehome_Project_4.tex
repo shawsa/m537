@@ -89,27 +89,36 @@
 	
 {\large \textbf{Take-home Project 4}}\bigbreak
 
+Note that in class we have shown the following definition of continuous to be equivalent to the one provided.
+
+\textbf{Definition:} The linear operator $L: X \to Y$ ($X,Y$ normed vector spaces) is said to be continuous at $\vec{u}$ if for all $\epsilon > 0$ there is a $\delta > 0$ such that if $\vec{v} \in X$ and $\norm{\vec{u} - \vec{v}}_X < \delta$ then $\norm{L\vec{u} - L\vec{v}}_Y < \epsilon$.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\problem{(2) $\iff $ (4)} \\
+\problem{(1) $\implies$ (2)} \\
+We will prove this by proving the contrapositive $\neg(2) \implies \neg(1)$. \\
 \begin{proof}
-	Obviously (4) $\implies$ (2). It remains to show that (2) $\implies$ (4). \bigbreak
+	Suppose that $L$ is not continuous at $\vec{0}$.
 	
-	Suppose that $L$ is continuous at $\vec{0}$. Let $\{\vec{x}_n\} \subseteq X$ such that $\lim\limits_{n \to \infty} \vec{x}_n = \vec{x} \in X$. Then clearly $\lim\limits_{n \to \infty} (\vec{x}_n - \vec{x}) = \vec{0}$.
-	\begin{align*}
-	\vec{0} & = L\vec{0} \\
-	& = \lim_{n \to \infty} L(\vec{x}_n - \vec{x}) \\
-	& = \lim_{n \to \infty} (L\vec{x}_n - L\vec{x}) \\
-	& = (\lim_{n \to \infty} L\vec{x}_n) - L\vec{x}
-	\end{align*}
-	Finally $\lim\limits_{n \to \infty} L\vec{x}_n = L\vec{x}$.	
+	%$\exists \epsilon>0, \forall \delta>0, \exists \vec{x} \in X: \norm{\vec{x}}<\delta \wedge \norm{L\vec{x}} \geq \epsilon$
+	
+	
+	Then there exists $\epsilon > 0$ such that for any $\delta > 0$ there is some $\vec{x}$ such that $\norm{\vec{x}}< \delta$ and $\norm{L\vec{x}}\geq \epsilon$. 
+	
+	Choose a sequence $\{\vec{x}_n\}_{n=1}^\infty$ such that $\norm{\vec{x}_n}< \frac{1}{n^2}$ and $\norm{L\vec{x}_n} \geq \epsilon$. 
+	
+	Then consider the sequence $\{n\vec{x}_n\}$. For all $n \in \NN$ we have that $\norm{n\vec{x}_n}< \frac{1}{n}$ and thus $\lim\limits_{n\to \infty} n\vec{x}_n = \vec{0}$. 
+	
+	Also $\norm{L(n\vec{x}_n)} = n \norm{L\vec{x}_n} \geq n\epsilon$. \bigbreak
+	
+	This shows that there is a sequence that converges to zero, but that $L$ maps it to a sequence which is unbounded. This is the negation of $(1)$.	
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \problem{(2) $\implies$ (3)} \\
 \begin{proof}
-	Suppose $L$ is continuous at $\vec{0}$. From class we have the alternative definition of continuity that says for $\epsilon=1$ there exists a $\delta >0$ such that if $\norm{\vec{x}}<\delta$ then $\norm{L\vec{x}}<1$. \bigbreak
+	Suppose $L$ is continuous at $\vec{0}$. Then for $\epsilon=1$ there exists a $\delta >0$ such that if $\norm{\vec{x}}<\delta$ then $\norm{L\vec{x}}<1$. \bigbreak
 	
-	Let $\vec{x} \in X$. Then $\frac{\delta}{2\norm{\vec{x}}}\vec{x} \in X$ and $\norm{\frac{\delta}{2\norm{\vec{x}}}\vec{x}} = \frac{\delta}{2\norm{\vec{x}}}\norm{\vec{x}} = \frac{\delta}{2} < \delta$. Thus $\norm{L\frac{\delta}{2\norm{\vec{x}}}\vec{x}} < 1$. Finally this implies that $\norm{L\vec{x}} < \frac{2}{\delta}$.
+	Let $\vec{x} \in X$. Then $\frac{\delta}{2\norm{\vec{x}}}\vec{x} \in X$ and $\norm{\frac{\delta}{2\norm{\vec{x}}}\vec{x}} = \frac{\delta}{2\norm{\vec{x}}}\norm{\vec{x}} = \frac{\delta}{2} < \delta$. Thus $\norm{L\frac{\delta}{2\norm{\vec{x}}}\vec{x}} < 1$. Finally this implies that $\norm{L\vec{x}} < \frac{2}{\delta}\norm{\vec{x}}$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -134,21 +143,24 @@
 \begin{proof}
 	Let $L$ be continuous at all points in $X$. Let $\{x_n\}_{n=1}^\infty \subseteq X$ such that $\lim_{n \to \infty} \vec{x}_n = \vec{0}$. We would like to show that there exists $C>0$ such that $\norm{L\vec{x}_n} \leq C$ for all $n \in \NN$. \bigbreak
 	
-	Since $L$ is continuous at all points in $X$ we know that $L$ is continuous at $\vec{0}$. Thus there exists $N \in \NN$ such that if $n \geq N$ then $\norm{L\vec{x}_n} < 1$. Then the set $\{ L\norm{\vec{x}_n} \}_{n=1}^N$ is a finite set of real numbers. Let $C_1$ be the maximum of this set. Let $C = max\{C_1, 1\}$. \bigbreak
+	Since $L$ is continuous at all points in $X$ we know that $L$ is continuous at $\vec{0}$. Thus there exists $N \in \NN$ such that if $n \geq N$ then $\norm{L\vec{x}_n} < 1$. Then the set $\{\norm{L\vec{x}_n} \}_{n=1}^N$ is a finite set of real numbers. Let $C_1$ be the maximum of this set. Let $C = max\{C_1, 1\}$. \bigbreak
 	
 	This $C$ satisfies our condition. Consider a particular $\vec{x}_n$. If $n<N$ then $\norm{L\vec{x}_n} \leq C_1 \leq C$, otherwise $\norm{L\vec{x}_n} \leq 1 \leq C$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\problem{(1) $\implies$ (2)} \\
-\begin{proof}
-	Suppose (1). We would like to show that $L$ is continuous at $\vec{0}$. \bigbreak
-	
-	
-\end{proof}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+%\problem{(2) $\iff $ (4)} \\
+%\begin{proof}
+%	Obviously (4) $\implies$ (2). It remains to show that (2) $\implies$ (4). \bigbreak
+%	
+%	Suppose that $L$ is continuous at $\vec{0}$. Let $\{\vec{x}_n\} \subseteq X$ such that $\lim\limits_{n \to \infty} \vec{x}_n = \vec{x} \in X$. Then clearly $\lim\limits_{n \to \infty} (\vec{x}_n - \vec{x}) = \vec{0}$.
+%	\begin{align*}
+%	\vec{0} & = L\vec{0} \\
+%	& = \lim_{n \to \infty} L(\vec{x}_n - \vec{x}) \\
+%	& = \lim_{n \to \infty} (L\vec{x}_n - L\vec{x}) \\
+%	& = (\lim_{n \to \infty} L\vec{x}_n) - L\vec{x}
+%	\end{align*}
+%	Finally $\lim\limits_{n \to \infty} L\vec{x}_n = L\vec{x}$.	
+%\end{proof}
 
 \end{document}
